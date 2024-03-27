@@ -1,5 +1,5 @@
 <template>
-  <div v-if="style" :style="style" ref="lavContainer"/>
+  <div v-if="style" :style="style" ref="lavContainer" />
 </template>
 
 <script>
@@ -9,93 +9,90 @@ import axios from "axios";
 export default {
   props: {
     path: {
-      required: true
+      required: true,
     },
     speed: {
       type: Number,
       required: false,
-      default: 1
+      default: 1,
     },
     width: {
       type: Number,
       required: false,
-      default: -1
+      default: -1,
     },
     height: {
       type: Number,
       required: false,
-      default: -1
+      default: -1,
     },
     loop: {
-      type:Boolean,
+      type: Boolean,
       required: false,
-      default: true
+      default: true,
     },
     autoPlay: {
-      type:Boolean,
+      type: Boolean,
       required: false,
-      default: true
+      default: true,
     },
     loopDelayMin: {
       type: Number,
       required: false,
-      default: 0
+      default: 0,
     },
     loopDelayMax: {
       type: Number,
       required: false,
-      default: 0
+      default: 0,
     },
   },
   data: () => ({
-    name: 'lottie-animation',
+    name: "lottie-animation",
     rendererSettings: {
       scaleMode: "centerCrop",
       clearCanvas: true,
       progressiveLoad: false,
-      hideOnTransparent: true
+      hideOnTransparent: true,
     },
     anim: null,
-    style: null
+    style: null,
   }),
   mounted() {
     this.init();
   },
   methods: {
     async loadJsonData(path) {
-      let p;
-      if(this.isURL(path)) p = path;
-      else p = "/"+path;
-
-      return await axios.get(p).then(response => {
+      return await axios.get(path).then((response) => {
         return response.data;
       });
     },
-    isURL(path){
+    isURL(path) {
       // just something I stole from stack
       // https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
 
       let urlpattern = new RegExp(
-        '^(https?:\\/\\/)?'+ // protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?' // query string
-      ,'i'); // fragment locator
+        "^(https?:\\/\\/)?" + // protocol
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+          "(\\?[;&a-z\\d%_.~+=-]*)?", // query string
+        "i"
+      ); // fragment locator
 
       return !!urlpattern.test(path);
     },
     async init() {
       this.style = {
-        width: (this.width != -1 )? `${this.width}px` : '100%',
-        height: (this.height != -1 )? `${this.height}px` : '100%',
+        width: this.width != -1 ? `${this.width}px` : "100%",
+        height: this.height != -1 ? `${this.height}px` : "100%",
         overflow: "hidden",
-        margin: "0 auto"
+        margin: "0 auto",
       };
 
       let jsonData = await this.loadJsonData(this.path);
 
-      if(this.anim) {
+      if (this.anim) {
         this.anim.destroy(); // Releases resources. The DOM element will be emptied.
       }
 
@@ -105,7 +102,7 @@ export default {
         loop: this.loop,
         autoplay: this.autoPlay,
         animationData: jsonData,
-        rendererSettings: this.rendererSettings
+        rendererSettings: this.rendererSettings,
       });
 
       this.$emit("AnimControl", this.anim);
@@ -127,15 +124,13 @@ export default {
       setTimeout(() => {
         this.anim.stop();
         this.executeLoop();
-      }, this.getRandomInt(this.loopDelayMin, this.loopDelayMax == 0? this.loopDelayMin : this.loopDelayMax));
+      }, this.getRandomInt(this.loopDelayMin, this.loopDelayMax == 0 ? this.loopDelayMin : this.loopDelayMax));
     },
-
-
   },
   watch: {
     path: function(newVal, oldVal) {
       this.init();
-    }
-  }
+    },
+  },
 };
 </script>
