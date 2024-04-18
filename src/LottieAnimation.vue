@@ -132,5 +132,11 @@ export default {
       this.init();
     },
   },
+  beforeUnmount() {
+    console.log("the component is getting unmounted");
+  },
+  unmounted() {
+    console.log("the component unmounted");
+  },
 };
 </script>
