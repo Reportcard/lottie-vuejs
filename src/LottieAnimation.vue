@@ -67,21 +67,6 @@ export default {
         return response.data;
       });
     },
-    isURL(path) {
-      // just something I stole from stack
-      // https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
-
-      let urlpattern = new RegExp(
-        "^(https?:\\/\\/)?" + // protocol
-        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-          "(\\?[;&a-z\\d%_.~+=-]*)?", // query string
-        "i"
-      ); // fragment locator
-
-      return !!urlpattern.test(path);
-    },
     async init() {
       this.style = {
         width: this.width != -1 ? `${this.width}px` : "100%",
@@ -105,7 +90,7 @@ export default {
         rendererSettings: this.rendererSettings,
       });
       console.log("is this triggering????????????");
-      this.$emit("AnimControl", this.anim);
+      // this.$emit("AnimControl", this.anim);
 
       this.anim.setSpeed(this.speed);
       if (this.loopDelayMin > 0) {
