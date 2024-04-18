@@ -104,7 +104,7 @@ export default {
         animationData: jsonData,
         rendererSettings: this.rendererSettings,
       });
-
+      console.log("is this triggering????????????");
       this.$emit("AnimControl", this.anim);
 
       this.anim.setSpeed(this.speed);
