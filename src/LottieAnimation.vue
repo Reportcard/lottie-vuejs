@@ -119,7 +119,7 @@ export default {
     },
   },
   mounted() {
-    this.anim.value.addEventListener("complete", () => {
+    this.anim.addEventListener("complete", () => {
       console.log("completed");
       emit("complete");
     });
