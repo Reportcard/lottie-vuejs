@@ -98,6 +98,7 @@ export default {
         this.executeLoop();
       }
       console.log("animation played init");
+      this.$emit("executionComplete");
     },
     getRandomInt(min, max) {
       min = Math.ceil(min);
@@ -110,13 +111,18 @@ export default {
         this.anim.stop();
         this.executeLoop();
       }, this.getRandomInt(this.loopDelayMin, this.loopDelayMax == 0 ? this.loopDelayMin : this.loopDelayMax));
-      console.log("animation played execute");
     },
   },
   watch: {
     path: function(newVal, oldVal) {
       this.init();
     },
+  },
+  mounted() {
+    this.anim.value.addEventListener("complete", () => {
+      console.log("completed");
+      emit("complete");
+    });
   },
 };
 </script>
