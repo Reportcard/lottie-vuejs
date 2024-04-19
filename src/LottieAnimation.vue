@@ -89,8 +89,7 @@ export default {
         animationData: jsonData,
         rendererSettings: this.rendererSettings,
       });
-      console.log("is this triggering????????????");
-      // this.$emit("AnimControl", this.anim);
+      this.$emit("AnimControl", this.anim);
 
       this.anim.setSpeed(this.speed);
       if (this.loopDelayMin > 0) {
@@ -119,6 +118,15 @@ export default {
   },
   destroyed() {
     console.log("done execution");
+  },
+  updated() {
+    console.log("this is updated");
+  },
+  beforeUnmount() {
+    console.log("this is beforeUnmount");
+  },
+  unmounted() {
+    console.log("this is unmounted");
   },
 };
 </script>
