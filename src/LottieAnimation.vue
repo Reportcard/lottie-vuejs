@@ -109,6 +109,11 @@ export default {
         this.executeLoop();
       }, this.getRandomInt(this.loopDelayMin, this.loopDelayMax == 0 ? this.loopDelayMin : this.loopDelayMax));
     },
+    handleExecutionComplete() {
+      console.log("handleExecutionComplete func");
+      this.$emit("complete");
+      this.anim.removeEventListener("complete");
+    },
   },
   watch: {
     path: function(newVal, oldVal) {
@@ -116,14 +121,11 @@ export default {
     },
     anim: {
       handler() {
+        console.log("in handler");
         if (this.anim != null) {
           this.anim.addEventListener("complete", () => {
-            console.log("execution complete");
-            this.$emit("complete");
+            this.handleExecutionComplete();
           });
-        } else {
-          console.log("debugg");
-          this.anim.removeEventListener("complete");
         }
       },
     },
