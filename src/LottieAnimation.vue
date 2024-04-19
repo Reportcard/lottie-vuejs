@@ -117,12 +117,17 @@ export default {
     path: function(newVal, oldVal) {
       this.init();
     },
-  },
-  mounted() {
-    this.anim.addEventListener("complete", () => {
-      console.log("completed");
-      emit("complete");
-    });
+    anim: {
+      handler() {
+        if (this.anim != null) {
+          console.log("handler triggered");
+          this.anim.addEventListener("complete", () => {
+            console.log("completed");
+            emit("complete");
+          });
+        }
+      },
+    },
   },
 };
 </script>
