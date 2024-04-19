@@ -90,13 +90,14 @@ export default {
         rendererSettings: this.rendererSettings,
       });
       this.$emit("AnimControl", this.anim);
-
+      console.log("test play");
       this.anim.setSpeed(this.speed);
       if (this.loopDelayMin > 0) {
         this.anim.loop = false;
         this.anim.autoplay = false;
         this.executeLoop();
       }
+      console.log("animation played init");
     },
     getRandomInt(min, max) {
       min = Math.ceil(min);
@@ -109,24 +110,13 @@ export default {
         this.anim.stop();
         this.executeLoop();
       }, this.getRandomInt(this.loopDelayMin, this.loopDelayMax == 0 ? this.loopDelayMin : this.loopDelayMax));
+      console.log("animation played execute");
     },
   },
   watch: {
     path: function(newVal, oldVal) {
       this.init();
     },
-  },
-  destroyed() {
-    console.log("done execution");
-  },
-  updated() {
-    console.log("this is updated");
-  },
-  beforeUnmount() {
-    console.log("this is beforeUnmount");
-  },
-  unmounted() {
-    console.log("this is unmounted");
   },
 };
 </script>
