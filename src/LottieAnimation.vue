@@ -90,15 +90,12 @@ export default {
         rendererSettings: this.rendererSettings,
       });
       this.$emit("AnimControl", this.anim);
-      console.log("test play");
       this.anim.setSpeed(this.speed);
       if (this.loopDelayMin > 0) {
         this.anim.loop = false;
         this.anim.autoplay = false;
         this.executeLoop();
       }
-      console.log("animation played init");
-      this.$emit("executionComplete");
     },
     getRandomInt(min, max) {
       min = Math.ceil(min);
@@ -120,11 +117,13 @@ export default {
     anim: {
       handler() {
         if (this.anim != null) {
-          console.log("handler triggered");
           this.anim.addEventListener("complete", () => {
-            console.log("completed");
-            emit("complete");
+            console.log("execution complete");
+            this.$emit("complete");
           });
+        } else {
+          console.log("debugg");
+          this.anim.removeEventListener("complete");
         }
       },
     },
