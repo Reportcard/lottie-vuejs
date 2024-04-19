@@ -110,7 +110,6 @@ export default {
       }, this.getRandomInt(this.loopDelayMin, this.loopDelayMax == 0 ? this.loopDelayMin : this.loopDelayMax));
     },
     handleExecutionComplete() {
-      console.log("handleExecutionComplete func");
       this.$emit("complete");
       this.anim.removeEventListener("complete");
     },
@@ -121,7 +120,6 @@ export default {
     },
     anim: {
       handler() {
-        console.log("in handler");
         if (this.anim != null) {
           this.anim.addEventListener("complete", () => {
             this.handleExecutionComplete();
